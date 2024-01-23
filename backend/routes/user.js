@@ -79,14 +79,11 @@ router.get("/signin", async(req,res) => {
     return  res.json({
         message: "Login successfull",
         token: token
-    })
-
+})
 })
 
-//updating user info
-router.put("/", authMiddleware, async(req,res) => {
-    
-})
+
+
 
 
 module.exports = router;
