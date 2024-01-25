@@ -1,7 +1,8 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const router = express.Router();
-const { User } = require('../db')
+const { User } = require('../models/db')
+const { Account} = require('../models/account')
 const z = require('zod')
 const jwt = require('jsonwebtoken')
 const { JWT_SECRET } = require('../config')
@@ -58,10 +59,19 @@ router.post('/signup', async (req, res) => {
         password: req.body.password
     })
     const userId = user._id;
+
+    //intializing balance
+    const accBalance = 1 + Math.random() * 10000 
+    const userAcc = await Account.create({
+        userId,
+        balance :accBalance
+    })
+
     const token = jwt.sign({ userId }, JWT_SECRET);
 
     res.json({
         message: "User created successfully",
+        balance: accBalance,
         token: token
     })
 })
