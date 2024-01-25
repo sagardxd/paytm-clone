@@ -14,6 +14,10 @@ app.use(express.json());
 app.use("/api/v1", routeRouter);
 app.use("/api/v1/user", userRouter);
 
+app.get("/", (req,res)=>{
+    return res.json({message: "hii"})
+})
+
 
 app.listen(6000, () => {console.log("Port started at 6000")});
 
