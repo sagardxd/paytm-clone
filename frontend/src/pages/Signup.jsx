@@ -1,12 +1,9 @@
 import React, { useState } from 'react'
+import { useRecoilState } from 'recoil';
+import { signupFormdataAtom } from '../store/atoms/user';
 
 const Signup = () => {
-  const [formData, setformData] = useState({
-    firstname: '',
-    lastname: '',
-    username: '',
-    password: ''
-  });
+  const [formData, setformData] = useRecoilState(signupFormdataAtom);
 
   const handleChange = (e) => {
     setformData({ ...formData, [e.target.name]: e.target.value })

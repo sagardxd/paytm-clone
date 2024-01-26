@@ -1,15 +1,13 @@
 import React from 'react'
-import { useState } from 'react';
+import { useRecoilState  } from 'recoil';
+import { signinFormdataAtom } from '../store/atoms/user';
 
 const Signin = () => {
 
-  const [formData, setformData] = useState({
-    username: '',
-    password: ''
-  });
+  const [formData, setFormData] = useRecoilState(signinFormdataAtom);
 
   const handleChange = (e) => {
-    setformData({ ...formData, [e.target.name]: e.target.value})
+    setFormData({ ...formData, [e.target.name]: e.target.value})
   }
 
   const submitHandler= (e) => {

@@ -1,0 +1,18 @@
+import React from 'react'
+import Navbar from '../components/Navbar'
+import Balance from '../components/Balance'
+import Search from '../components/Search'
+import Usercard from '../components/Usercard'
+
+const Dashboard = () => {
+  return (
+    <div className='flex min-h-screen bg-slate-200'>
+      <Navbar/>
+      <Balance/>
+      <Search/>
+      <Usercard/>
+  </div>
+  )
+}
+
+export default Dashboard
