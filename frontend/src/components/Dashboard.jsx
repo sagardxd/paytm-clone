@@ -2,7 +2,9 @@ import React from 'react'
 
 const Dashboard = () => {
   return (
-    <div>Dashboard</div>
+    <div className='flex justify-center items-center min-h-screen bg-slate-200'>
+      
+  </div>
   )
 }
 
