@@ -6,7 +6,7 @@ import Usercard from '../components/Usercard'
 
 const Dashboard = () => {
   return (
-    <div className='flex min-h-screen bg-slate-200'>
+    <div className='flex flex-col min-h-screen bg-slate-200'>
       <Navbar/>
       <Balance/>
       <Search/>
