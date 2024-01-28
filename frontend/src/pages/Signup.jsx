@@ -1,9 +1,18 @@
 import React, { useState } from 'react'
 import { useRecoilState } from 'recoil';
 import { signupFormdataAtom } from '../store/atoms/user';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
   const [formData, setformData] = useRecoilState(signupFormdataAtom);
+
+  let navigate = useNavigate();
+
+  //routeChange
+  const routeChange = () => {
+    let path="/"
+    navigate(path);
+  }
 
   const handleChange = (e) => {
     setformData({ ...formData, [e.target.name]: e.target.value })
@@ -68,7 +77,8 @@ const Signup = () => {
             >Sign up</button>
             <div className='text-center mt-4'>
               Already have an account?
-              <span className='font-bold'> Click here to signin</span>
+              <span className='font-semibold underline'
+              onClick={routeChange}>Sign In</span>
             </div>
           </form>
 
