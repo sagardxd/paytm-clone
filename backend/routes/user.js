@@ -26,9 +26,6 @@ const updateInfoBody = z.object({
     lastname: z.string(),
 })
 
-router.post("/", (req, res) => {
-    return res.json({ message: "hii" })
-})
 
 //signUp
 router.post('/signup', async (req, res) => {

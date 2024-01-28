@@ -1,26 +1,23 @@
 import React from 'react'
 import { useRecoilState  } from 'recoil';
 import { signinFormdataAtom } from '../store/atoms/user';
-import { useNavigate } from 'react-router-dom';
+import { Link } from "react-router-dom";
+import axios from 'axios';
 
 const Signin = () => {
   const [formData, setFormData] = useRecoilState(signinFormdataAtom);
-  let navigate = useNavigate();
-
-  //routeChange
-  const routeChange = () => {
-    let path="signup"
-    navigate(path);
-  }
-
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value})
   }
 
-  const submitHandler= (e) => {
+  const submitHandler= async(e) => {
     e.preventDefault();
-    console.log(formData)
+    try {
+      await axios.post('http://localhost:3000/api/v1/user/signin', formData);
+    } catch (error) {
+      console.error('Error during signup:', error);
+    }
   }
 
   return (
@@ -57,9 +54,8 @@ const Signin = () => {
             >Sign in</button>
             <div className='text-center pt-4'>
               Don't have an account? 
-              <span className='font-semibold underline'
-              onClick={routeChange}
-              >Sign Up</span>
+             
+              <Link className='font-semibold underline' to="/signup">Sign Up</Link>
             </div>
           </form>
 
