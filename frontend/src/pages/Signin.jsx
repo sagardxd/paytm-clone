@@ -3,8 +3,8 @@ import { useRecoilState  } from 'recoil';
 import { signinFormdataAtom } from '../store/atoms/user';
 
 const Signin = () => {
-
   const [formData, setFormData] = useRecoilState(signinFormdataAtom);
+
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value})
