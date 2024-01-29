@@ -1,6 +1,6 @@
 import React from 'react'
 import { useRecoilState  } from 'recoil';
-import { signinFormdataAtom } from '../store/atoms/user';
+import { signinFormdataAtom } from '../store/atoms/userlogin';
 import { Link } from "react-router-dom";
 import axios from 'axios';
 
@@ -14,7 +14,9 @@ const Signin = () => {
   const submitHandler= async(e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:3000/api/v1/user/signin', formData);
+      const res = await axios.post('http://localhost:3000/api/v1/user/signin', formData);
+      localStorage.setItem("token", res.data.token);
+      console.log(res.data.token)
     } catch (error) {
       console.error('Error during signup:', error);
     }
