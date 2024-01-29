@@ -1,6 +1,12 @@
 import React from 'react'
+import { useSearchParams } from 'react-router-dom'
 
 const Sendmoney = () => {
+
+    const [searchParams, setSearchParams] = useSearchParams();
+    console.log(searchParams)
+    console.log(searchParams.get('id'));
+
     return (
         <div className='w-full min-h-screen bg-slate-200 flex justify-center items-center '>
             <div className='flex flex-col w-1/3 px-14 py-14  gap-2 rounded-md bg-white shadow-md'>
@@ -8,7 +14,7 @@ const Sendmoney = () => {
                 <div className='flex justify-start items-center gap-3'>
                     <div className='rounded-full bg-green-500 w-10 h-10 text-center inline-flex items-center justify-center text-xl text-white font-medium '>S
                     </div>
-                    <h2 className='font-bold text-2xl'>Friends Name</h2>
+                    <h2 className='font-bold text-2xl'>{searchParams.get('name')}</h2>
                 </div>
                 <h3 className='text-sm font-semibold'>Amount(in Rs)</h3>
                 <input

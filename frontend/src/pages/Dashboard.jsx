@@ -32,7 +32,7 @@ import { userDataAtom } from '../store/atoms/alluserData'
         <Navbar/>
         <Balance/>
         <Search/>
-        {alluser.map((user) => <Usercard key={user._id} firstname={user.firstName} lastname={user.lastName} />)}
+        {alluser.map((user) => <Usercard key={user._id} id={user._id} firstname={user.firstName} lastname={user.lastName} />)}
     </div>
     )
   }

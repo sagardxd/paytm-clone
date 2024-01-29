@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
-const Usercard = ({firstname, lastname}) => {
+const Usercard = ({firstname, lastname, id}) => {
   const navigate = useNavigate();
   return (
     <div className='w-full p-6 flex justify-between'>
@@ -11,7 +11,7 @@ const Usercard = ({firstname, lastname}) => {
         </div>
         <div className='ml-3 text-lg font-semibold'>{firstname} {lastname}</div>
       </div>
-      <button onClick={()=> {<Link to={`/send?id=${id}`}/>}} className='bg-black text-white px-4 rounded-md text-sm '>Send Money</button>
+      <button onClick={()=> {navigate(`/send?id=${id}&name=${firstname}`)}} className='bg-black text-white px-4 rounded-md text-sm '>Send Money</button>
 
     </div>
   )
