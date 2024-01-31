@@ -1,22 +1,25 @@
-import React from 'react'
-import { useRecoilState  } from 'recoil';
+import React, { useState } from 'react'
+import { useRecoilState } from 'recoil';
 import { signinFormdataAtom } from '../store/atoms/userlogin';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 
 const Signin = () => {
   const [formData, setFormData] = useRecoilState(signinFormdataAtom);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value})
+    setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
-  const submitHandler= async(e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
     try {
       const res = await axios.post('http://localhost:3000/api/v1/user/signin', formData);
+      if (res.data.token) {
       localStorage.setItem("token", res.data.token);
-      console.log(res.data.token)
+        navigate("/dashboard")
+      }
     } catch (error) {
       console.error('Error during signup:', error);
     }
@@ -55,8 +58,8 @@ const Signin = () => {
             hover:bg-white hover:text-black hover:border hover:border-gray-300'
             >Sign in</button>
             <div className='text-center pt-4'>
-              Don't have an account? 
-             
+              Don't have an account?
+
               <Link className='font-semibold underline' to="/signup">Sign Up</Link>
             </div>
           </form>
