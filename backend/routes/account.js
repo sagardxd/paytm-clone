@@ -4,6 +4,7 @@ const router = express.Router();
 const z = require('zod')
 const authMiddleware = require('../middleware');
 const { Account } = require('../models/account');
+const { User } = require('../models/db');
 
 const transferBody = z.object({
     to: z.string(),
@@ -15,9 +16,18 @@ router.get("/balance", authMiddleware, async (req, res) => {
     const account = await Account.findOne({
         userId: req.userId
     });
+    const user = await User.findOne({
+        _id: account.userId
+    });
+
+    // If user not found, return an error
+    if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+    }
 
     res.json({
-        balance: account.balance
+        balance: account.balance,
+        name: user.firstname
     })
 });
 

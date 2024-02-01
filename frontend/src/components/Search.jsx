@@ -1,6 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
+
 
 const Search = () => {
+
+  const [searchData, setsearchData] = useState('');
+
   return (
     <div className='w-full px-6 font-bold text-xl flex flex-col'>
       <div>Users</div>
