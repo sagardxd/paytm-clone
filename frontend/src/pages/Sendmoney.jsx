@@ -1,11 +1,33 @@
 import React from 'react'
 import { useSearchParams } from 'react-router-dom'
+import { useRecoilState } from 'recoil';
+import { transferAtom } from '../store/atoms/transfer';
+import axios from 'axios';
 
 const Sendmoney = () => {
 
     const [searchParams, setSearchParams] = useSearchParams();
-    console.log(searchParams)
-    console.log(searchParams.get('id'));
+    const [transferAmount , setTransferMoney] = useRecoilState(transferAtom);
+    console.log(searchParams.get('id'))
+
+
+    const submitHandler = async() => {
+        console.log(transferAmount)
+        try {
+            const res = await axios.post('http://localhost:3000/api/v1/account/transfer', {
+                to: searchParams.get('id'),
+                amount: transferAmount,
+            }, {
+                headers: { "Authorization": 'Bearer ' + localStorage.getItem('token') }
+            });
+            console.log(res.data);
+            // Handle the response or perform other actions
+        } catch (error) {
+            console.error(error);
+            // Handle errors or send an appropriate response
+        }
+        
+    }
 
     return (
         <div className='w-full min-h-screen bg-slate-200 flex justify-center items-center '>
@@ -20,9 +42,11 @@ const Sendmoney = () => {
                 <input
                     className='border border-gray-300 rounded-md p-2'
                     placeholder='Enter Amount'
+                    value = {transferAmount}
+                    onChange={(e)=> {setTransferMoney(e.target.value)}}
                 />
-                <button className='w-full bg-green-500 text-white p-2 rounded-md hover:bg-green-600'>Initiate Transfer</button>
-            </div>
+                <button type='submit' onClick={submitHandler} className='w-full bg-green-500 text-white p-2 rounded-md hover:bg-green-600'>Initiate Transfer</button>
+                </div>
         </div>
     )
 }
