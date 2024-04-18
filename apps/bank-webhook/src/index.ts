@@ -3,6 +3,7 @@ import db from '@repo/db/client'
 import { PaymentInformation } from "./zod/webhook";
 
 const app = express();
+app.use(express.json());
 
 app.post("/hdfcWebhook", async (req, res) => {
     const result = PaymentInformation.safeParse(req.body);
@@ -49,3 +50,5 @@ app.post("/hdfcWebhook", async (req, res) => {
 
 
 })
+
+app.listen(8000);
