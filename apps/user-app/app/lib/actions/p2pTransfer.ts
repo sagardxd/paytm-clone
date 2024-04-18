@@ -1,6 +1,6 @@
 "use server";
 
-import  {getServerSession} from 'next-auth';
+import { getServerSession } from 'next-auth';
 import { authOptions } from '../auth';
 import prisma from '@repo/db/client';
 
@@ -8,43 +8,48 @@ export async function p2pTransactions(number: string, amount: number) {
 
     const session = await getServerSession(authOptions);
     const from = session.user.id;
-    if(!session?.user || !from) {
+    if (!session?.user || !from) {
         return {
             message: "Unauthorized user"
-        }}
-
-        const toUser = await prisma.user.findFirst({
-            where: {
-                number: number
-            }
-        });
-
-        // if the user does not exsist
-        if(!toUser) {
-            return {
-                message : "user not found"
-            }
         }
+    }
 
-        await prisma.$transaction(async(tx) => {
-            const  fromBalance = await tx.balance.findFirst({
-                where: { userId: Number(from)}
-            })
+    const toUser = await prisma.user.findFirst({
+        where: {
+            number: number
+        }
+    });
 
-            //checking if from exsists and have balance in their account
-            if(!fromBalance || fromBalance.amount < amount) {
-                throw new Error("Insufficient Balance");
-            }
+    // if the user does not exsist
+    if (!toUser) {
+        return {
+            message: "user not found"
+        }
+    }
 
-            await tx.balance.update({
-                where: {userId: Number(from)},
-                data: {amount: {decrement: amount}}
-            });
+    await prisma.$transaction(async (tx) => {
 
-            await tx.balance.update({
-                where: {userId: toUser.id},
-                data: {amount: {increment: amount}}
-            });
+        //locking in db so no two transaction can run together of a simple user
+        await tx.$queryRaw`SELECT * FROM "Balance" WHERE "userId" = ${Number(from)} FOR UPDATE`;
+
+        const fromBalance = await tx.balance.findFirst({
+            where: { userId: Number(from) }
         })
 
-    }
+        //checking if from exsists and have balance in their account
+        if (!fromBalance || fromBalance.amount < amount) {
+            throw new Error("Insufficient Balance");
+        }
+
+        await tx.balance.update({
+            where: { userId: Number(from) },
+            data: { amount: { decrement: amount } }
+        });
+
+        await tx.balance.update({
+            where: { userId: toUser.id },
+            data: { amount: { increment: amount } }
+        });
+    })
+
+}
