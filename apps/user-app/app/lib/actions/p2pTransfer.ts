@@ -36,7 +36,7 @@ export async function p2pTransactions(number: string, amount: number) {
             where: { userId: Number(from) }
         })
 
-        //checking if from exsists and have balance in their account
+        //checking if from exsists and have balance in their account to update it
         if (!fromBalance || fromBalance.amount < amount) {
             throw new Error("Insufficient Balance");
         }
