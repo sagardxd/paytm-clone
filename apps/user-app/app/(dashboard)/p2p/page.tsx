@@ -5,7 +5,6 @@ import { authOptions } from "../../lib/auth";
 import prisma from "@repo/db/client";
 import { Center } from "@repo/ui/center";
 
-<<<<<<< HEAD
 
  
 // async function getP2pTransactions() {
@@ -20,20 +19,6 @@ import { Center } from "@repo/ui/center";
 //         amount: t.amount,
 //         toUserId: t.toUserId
 //     }));
-=======
-async function getP2pTransactions() {
-    const session = await getServerSession(authOptions);
-    const txns = await prisma.p2pTransfer.findMany({
-        where: {
-            fromUserId: Number(session?.user?.id)
-        }
-    });
-    return txns.map((t: any) => ({
-        time: t.timestamp,
-        amount: t.amount,
-        toUserId: t.toUserId
-    }));
->>>>>>> bf5120f743b0d794aa90484158f109b1a5958806
 
 // }
 
