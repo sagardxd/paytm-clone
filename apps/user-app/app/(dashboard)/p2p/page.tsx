@@ -14,7 +14,7 @@ async function getP2pTransactions() {
             fromUserId: Number(session?.user?.id)
         }
     });
-    return txns.map((t) => ({
+    return txns.map((t: {amount: number; timestamp: Date; toUserId: number}) => ({
         time: t.timestamp,
         amount: t.amount,
         toUserId: t.toUserId
