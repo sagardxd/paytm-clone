@@ -4,7 +4,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '../auth';
 import prisma from '@repo/db/client';
 
-export async function p2pTransactions(number: string, amount: number) {
+export async function p2pTransactions(number: string, amount: number) : Promise<any>{
 
     const session = await getServerSession(authOptions);
     const from = session.user.id;
