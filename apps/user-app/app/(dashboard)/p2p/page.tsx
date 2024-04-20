@@ -5,8 +5,6 @@ import { authOptions } from "../../lib/auth";
 import prisma from "@repo/db/client";
 import { Center } from "@repo/ui/center";
 
-
- 
 // async function getP2pTransactions() {
 //     const session = await getServerSession(authOptions);
 //     const txns = await prisma.p2pTransfer.findMany({
@@ -23,7 +21,6 @@ import { Center } from "@repo/ui/center";
 // }
 
 export default async function () {
-
     // const transactions = await getP2pTransactions();
 
     return <div className="w-full">
