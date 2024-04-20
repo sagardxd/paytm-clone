@@ -7,24 +7,24 @@ import { Center } from "@repo/ui/center";
 
 
  
-async function getP2pTransactions() {
-    const session = await getServerSession(authOptions);
-    const txns = await prisma.p2pTransfer.findMany({
-        where: {
-            fromUserId: Number(session?.user?.id)
-        }
-    });
-    return txns.map((t: {amount: number; timestamp: Date; toUserId: number}) => ({
-        time: t.timestamp,
-        amount: t.amount,
-        toUserId: t.toUserId
-    }));
+// async function getP2pTransactions() {
+//     const session = await getServerSession(authOptions);
+//     const txns = await prisma.p2pTransfer.findMany({
+//         where: {
+//             fromUserId: Number(session?.user?.id)
+//         }
+//     });
+//     return txns.map((t: {amount: number; timestamp: Date; toUserId: number}) => ({
+//         time: t.timestamp,
+//         amount: t.amount,
+//         toUserId: t.toUserId
+//     }));
 
-}
+// }
 
 export default async function () {
 
-    const transactions = await getP2pTransactions();
+    // const transactions = await getP2pTransactions();
 
     return <div className="w-full">
         <div className="h-[90vh] flex flex-col gap-4">
@@ -34,9 +34,9 @@ export default async function () {
            <div>
                 <SendCard />
             </div>
-            <div>
+            {/* <div>
                 <P2pTransactions transactions={transactions} />
-            </div>
+            </div> */}
            </div>
            </Center>
         </div>
