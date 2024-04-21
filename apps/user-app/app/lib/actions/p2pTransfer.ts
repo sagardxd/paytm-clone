@@ -13,10 +13,6 @@ export async function p2pTransactions(number: string, amount: number) : Promise<
             message: "Unauthorized user"
         }
     }
-
-
-
-
     
     const toUser = await prisma.user.findFirst({
         where: {
