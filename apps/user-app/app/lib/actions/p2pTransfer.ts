@@ -27,7 +27,7 @@ export async function p2pTransactions(number: string, amount: number) : Promise<
         }
     }
 
-    await prisma.$transaction(async (tx) => {
+    await prisma.$transaction(async (tx: any) => {
 
         //locking in db so no two transaction can run together of a simple user
         await tx.$queryRaw`SELECT * FROM "Balance" WHERE "userId" = ${Number(from)} FOR UPDATE`;
