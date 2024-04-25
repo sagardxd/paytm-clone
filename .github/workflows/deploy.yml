@@ -27,4 +27,4 @@ jobs:
         tags: sagardxd/paytm:latest 
 
     - name: Verify Pushed Image
-      run: docker pull 1sagardxd/paytm:latest  
+      run: docker pull sagardxd/paytm:latest  
