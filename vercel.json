@@ -1,0 +1,13 @@
+{
+    "version": 1,
+    "builds": [
+      { "src": "packages/db/**", "use": "@vercel/node" },
+      { "src": "apps/user-app/**", "use": "@vercel/node" }
+    ],
+    "env": {
+      "DATABASE_URL": "@db.DATABASE_URL",
+      "JWT_SECRET": "@user-app.JWT_SECRET",
+      "NEXTAUTH_URL": "@user-app.NEXTAUTH_URL"
+    }
+  }
+  
