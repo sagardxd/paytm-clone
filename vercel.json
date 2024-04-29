@@ -1,13 +1,36 @@
 {
-    "version": 1,
+    "version": 2,
     "builds": [
-      { "src": "packages/db/**", "use": "@vercel/node" },
+      { 
+        "src": "packages/db/**", 
+        "use": "@vercel/node",
+        "config": {
+          "build": {
+            "env": {
+              "PRISMA_GENERATE": "true"
+            }
+          }
+        }
+      },
       { "src": "apps/user-app/**", "use": "@vercel/node" }
     ],
     "env": {
       "DATABASE_URL": "@db.DATABASE_URL",
       "JWT_SECRET": "@user-app.JWT_SECRET",
       "NEXTAUTH_URL": "@user-app.NEXTAUTH_URL"
+    },
+    "build": {
+      "env": {
+        "DATABASE_URL": "@db.DATABASE_URL",
+        "JWT_SECRET": "@user-app.JWT_SECRET",
+        "NEXTAUTH_URL": "@user-app.NEXTAUTH_URL"
+      },
+      "commands": {
+        "build": [
+          "cd packages/db && npx prisma generate && cd ../..",
+          "npm run build"
+        ]
+      }
     }
   }
   
